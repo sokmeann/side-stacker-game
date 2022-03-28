@@ -37,27 +37,29 @@ const App = () => {
         ) : (
           <h3 className="winner-announcement">{`Game ended. Player ${winner} won!!`}</h3>
         )}
-        {!winner && (
-          <SidePlayZone
-            numRows={Game.numRows}
-            onClick={(rowIdx: number) => addToken(rowIdx, "left")}
-            currentPlayer={currentPlayer}
-            checkRowAvail={checkRowAvail}
-          />
-        )}
-        <div className="game-board">
-          {board.map((row: Array<0 | 1 | 2>, i: number) => (
-            <Row key={i} data={row} />
-          ))}
+        <div className="board-wrapper">
+          {!winner && (
+            <SidePlayZone
+              numRows={Game.numRows}
+              onClick={(rowIdx: number) => addToken(rowIdx, "left")}
+              currentPlayer={currentPlayer}
+              checkRowAvail={checkRowAvail}
+            />
+          )}
+          <div className="game-board">
+            {board.map((row: Array<0 | 1 | 2>, i: number) => (
+              <Row key={i} data={row} />
+            ))}
+          </div>
+          {!winner && (
+            <SidePlayZone
+              numRows={Game.numRows}
+              onClick={(rowIdx: number) => addToken(rowIdx, "right")}
+              currentPlayer={currentPlayer}
+              checkRowAvail={checkRowAvail}
+            />
+          )}
         </div>
-        {!winner && (
-          <SidePlayZone
-            numRows={Game.numRows}
-            onClick={(rowIdx: number) => addToken(rowIdx, "right")}
-            currentPlayer={currentPlayer}
-            checkRowAvail={checkRowAvail}
-          />
-        )}
       </div>
     </div>
   );

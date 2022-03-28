@@ -13,6 +13,10 @@
   flex-direction: column;
 }
 
+.board-wrapper {
+  display: flex;
+}
+
 .game-board {
   border: 1px solid #efefef;
   border-radius: 10px;
