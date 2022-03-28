@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import { SideStackerGame } from "./game";
+import Row from "./components/row";
+import SidePlayZone from "./components/side_play_zone";
 
-function App() {
+const App = () => {
+  const Game = new SideStackerGame(7, 7);
+  const [currentPlayer, setCurrentPlayer] = useState<1 | 2>(1);
+  const [board, setBoard] = useState(Game.createBoard());
+  const [winner, setWinner] = useState(Game.getWinner());
+  const [numTokens, setNumTokens] = useState(0);
+
+  const getNextPlayer = (currentPlayer: number) => {
+    return currentPlayer === 1 ? 2 : 1;
+  };
+
+  const addToken = (rowIdx: number, dir: "left" | "right") => {
+    if (Game.canAddToken([...board[rowIdx]])) {
+      setBoard([...Game.addToken(dir, currentPlayer, rowIdx, board)]);
+      setCurrentPlayer(getNextPlayer(currentPlayer));
+      setNumTokens(numTokens + 1);
+      setWinner(Game.getWinner());
+    }
+  };
+
+  const checkRowAvail = (rowIdx: number) => {
+    return Game.canAddToken([...board[rowIdx]]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="game-wrapper">
+        <h1>SIDE-STACKER GAME</h1>
+        {!winner ? (
+          <h3>{`Current Turn: Player ${currentPlayer}`}</h3>
+        ) : (
+          <h3 className="winner-announcement">{`Game ended. Player ${winner} won!!`}</h3>
+        )}
+        {!winner && (
+          <SidePlayZone
+            numRows={Game.numRows}
+            onClick={(rowIdx: number) => addToken(rowIdx, "left")}
+            currentPlayer={currentPlayer}
+            checkRowAvail={checkRowAvail}
+          />
+        )}
+        <div className="game-board">
+          {board.map((row: Array<0 | 1 | 2>, i: number) => (
+            <Row key={i} data={row} />
+          ))}
+        </div>
+        {!winner && (
+          <SidePlayZone
+            numRows={Game.numRows}
+            onClick={(rowIdx: number) => addToken(rowIdx, "right")}
+            currentPlayer={currentPlayer}
+            checkRowAvail={checkRowAvail}
+          />
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
