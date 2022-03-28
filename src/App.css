@@ -102,11 +102,18 @@
   }
 }
 
-.winner-announcement {
+.announcement {
   background: linear-gradient(-45deg, #fcd5ce, #fae1dd, #ece4db, #d8e2dc);
   background-size: 400% 400%;
   animation: gradient 3s ease infinite;
   padding: 15px 0px;
   width: 100%;
   border-radius: 10px;
+}
+
+.reset {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
 }

@@ -11,6 +11,14 @@ const App = () => {
   const [winner, setWinner] = useState(Game.getWinner());
   const [numTokens, setNumTokens] = useState(0);
 
+  const resetGame = () => {
+    Game.reset();
+    setBoard(Game.createBoard());
+    setCurrentPlayer(1);
+    setNumTokens(0);
+    setWinner(false);
+  };
+
   const getNextPlayer = (currentPlayer: number) => {
     return currentPlayer === 1 ? 2 : 1;
   };
@@ -32,10 +40,22 @@ const App = () => {
     <div className="app">
       <div className="game-wrapper">
         <h1>SIDE-STACKER GAME</h1>
-        {!winner ? (
-          <h3>{`Current Turn: Player ${currentPlayer}`}</h3>
+        {numTokens === 49 ? (
+          <div>
+            <h3 className="announcement">{`Board is full, no one wins.`}</h3>
+            <button className="reset" onClick={resetGame}>
+              New Game
+            </button>
+          </div>
+        ) : winner ? (
+          <div>
+            <h3 className="announcement">{`Game ended. Player ${winner} won!!`}</h3>
+            <button className="reset" onClick={resetGame}>
+              New Game
+            </button>
+          </div>
         ) : (
-          <h3 className="winner-announcement">{`Game ended. Player ${winner} won!!`}</h3>
+          <h3>{`Current Turn: Player ${currentPlayer}`}</h3>
         )}
         <div className="board-wrapper">
           {!winner && (

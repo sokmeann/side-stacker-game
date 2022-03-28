@@ -162,4 +162,11 @@ export class SideStackerGame {
   getWinner() {
     return this.winner;
   }
+  // reset
+  reset() {
+    this.rowWin = false;
+    this.columnWin = false;
+    this.diagonalWin = false;
+    this.winner = false;
+  }
 }
