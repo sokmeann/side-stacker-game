@@ -34,8 +34,8 @@
 }
 
 .token {
-  width: 80px;
-  height: 80px;
+  width: 65px;
+  height: 65px;
   margin: 8px;
   border-radius: 50%;
 }
@@ -50,6 +50,14 @@
 
 .player-2 {
   background-color: #8093f1;
+}
+
+.player-1-color {
+  color: #ff686b;
+}
+
+.player-2-color {
+  color: #8093f1;
 }
 
 .play-token-1 {
@@ -116,4 +124,9 @@
   border: none;
   cursor: pointer;
   margin-bottom: 20px;
+}
+
+.warning {
+  color: #ff686b;
+  font-weight: bold;
 }

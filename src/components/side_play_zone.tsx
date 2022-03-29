@@ -1,11 +1,11 @@
 const PlayZone = ({
   numRows,
   onClick,
-  currentPlayer,
+  currentTurn,
   checkRowAvail,
 }: {
   numRows: number;
-  currentPlayer: 1 | 2;
+  currentTurn: 1 | 2;
   onClick: (rowIdx: number) => void;
   checkRowAvail: (rowIdx: number) => boolean;
 }) => {
@@ -16,7 +16,7 @@ const PlayZone = ({
         return checkRowAvail(val) ? (
           <div
             key={i}
-            className={`token play-token-${currentPlayer}`}
+            className={`token play-token-${currentTurn}`}
             onClick={() => onClick(i)}
           >
             <span>Play</span>
